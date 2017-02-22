@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="addOrderViewVBox" alignment="TOP_CENTER" minHeight="300.0" minWidth="325.0" prefHeight="600.0" prefWidth="650.0" spacing="20.0" visible="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddOrderController">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <HBox spacing="10.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefWidth="315.0" spacing="10.0">
+               <children>
+                  <Label text="Dane techniczne" />
+                  <Label text="Numer zlecenia:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+                  <Label text="Data wejścia:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+                  <Label text="Marka:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+                  <Label text="Model:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+                  <Label text="Numer seryjny:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+                  <Label text="Opis uszkodzeń:" />
+                  <TextField maxWidth="-Infinity" prefHeight="75.0" prefWidth="250.0" />
+                  <Label text="Prowadzący:" />
+                  <TextField maxWidth="-Infinity" prefWidth="250.0" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="315.0" spacing="10.0">
+               <children>
+                  <Label text="Dane kontaktowe" />
+                  <Label text="Imię:" />
+                  <TextField maxWidth="250.0" prefWidth="250.0" />
+                  <Label text="Nazwisko:" />
+                  <TextField maxWidth="250.0" />
+                  <Label text="Numer telefonu:" />
+                  <TextField maxWidth="250.0" />
+                  <Label text="Adres e-mail:" />
+                  <TextField maxWidth="250.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button mnemonicParsing="false" text="Zapisz zlecenie" />
+   </children>
+</VBox>

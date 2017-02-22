@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="400.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <HBox layoutX="169.0" layoutY="191.0" minHeight="300.0" minWidth="400.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox minHeight="300.0" minWidth="75.0" prefHeight="600.0" prefWidth="150.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#showCurrent" text="BIEŻĄCE" />
+                  <Button mnemonicParsing="false" onAction="#showAddOrder" text="DODAJ ZLECENIE" />
+                  <Button mnemonicParsing="false" onAction="#showHistory" text="HISTORIA" />
+                  <Button mnemonicParsing="false" onAction="#showStatistics" text="STATYSTYKI" />
+                  <Button mnemonicParsing="false" onAction="#close" text="ZAKOŃCZ" />
+               </children>
+            </VBox>
+            <Pane minHeight="300.0" minWidth="325.0" prefHeight="600.0" prefWidth="650.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <fx:include fx:id="currentView" source="CurrentView.fxml" />
+                  <fx:include fx:id="historyView" source="HistoryView.fxml" />
+                  <fx:include fx:id="addOrderView" source="AddOrderView.fxml" />
+                  <fx:include fx:id="statisticsView" source="StatisticsView.fxml" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
