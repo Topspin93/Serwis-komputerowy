@@ -1,0 +1,1 @@
+INSERT INTO serwiskomputerowy.employee (name, surname) VALUES ('Roman', 'Warszawski');

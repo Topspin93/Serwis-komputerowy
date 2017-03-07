@@ -1,4 +1,4 @@
-package controller;
+package main;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	private Stage primaryStage;
+	private static Stage primaryStage;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,6 +32,7 @@ public class Main extends Application {
 
 			Scene scene = new Scene(pane);
 			primaryStage.setScene(scene);
+			scene.getStylesheets().add(Main.class.getResource("/view/application.css").toExternalForm());
 			primaryStage.setTitle("Serwis komputerowy v1.0");
 			primaryStage.show();
 		} catch (IOException e) {
@@ -41,5 +42,9 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public Stage getPrimaryStage() {
+		return Main.primaryStage;
 	}
 }

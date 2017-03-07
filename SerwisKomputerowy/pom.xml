@@ -15,5 +15,11 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.6.Final</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>8.40.12</version>
+		</dependency>
 	</dependencies>
 </project>

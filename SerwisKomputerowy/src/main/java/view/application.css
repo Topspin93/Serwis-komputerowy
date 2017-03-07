@@ -1,0 +1,7 @@
+.fieldOK {
+  -fx-control-inner-background: rgba(117, 255, 0, 0.7);;
+}
+
+.fieldDenied {
+  -fx-control-inner-background: rgba(255, 66, 0, 0.7);;
+}

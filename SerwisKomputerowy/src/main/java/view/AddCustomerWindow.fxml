@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="addCustomerWindowVBox" maxHeight="400.0" maxWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="12.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerWindowController">
+   <children>
+      <Label text="Dodaj nowego klienta" />
+      <Label text="* Imię:" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField fx:id="tfName" prefWidth="320.0" />
+            <ImageView fx:id="ivName" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <Label text="* Nazwisko:" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField fx:id="tfSurname" prefWidth="320.0" />
+            <ImageView fx:id="ivSurname" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <Label text="* Numer telefonu:" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField fx:id="tfTelephone" prefWidth="320.0" />
+            <ImageView fx:id="ivTelephone" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <Label text="  Adres e-mail:" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField fx:id="tfEmail" prefWidth="320.0" />
+            <ImageView fx:id="ivEmail" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <Button fx:id="buttonAdd" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#add" text="Dodaj" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

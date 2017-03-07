@@ -9,12 +9,13 @@ public class MainController {
 	@FXML HistoryController historyViewController;
 	@FXML AddOrderController addOrderViewController;
 	@FXML StatisticsController statisticsViewController;
+
 	private VBox current;
 
 	public void initialize(){
 		current = currentViewController.currentViewVBox;
-		//currentViewController.init(this);
-		//historyViewController.init(this);
+		currentViewController.init(this);
+		addOrderViewController.init(this);
 	}
 	
 	public void showCurrent(){
@@ -46,4 +47,9 @@ public class MainController {
 		current = vbox;
 		current.setVisible(true);
 	}
+	
+//	public void load(){
+//		//currentViewController.label.setText(addOrderViewController.getTfOrderNumber().getText());
+//		
+//	}
 }

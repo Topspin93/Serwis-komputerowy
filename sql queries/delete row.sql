@@ -1,0 +1,1 @@
+DELETE FROM serwiskomputerowy.customer WHERE id=5;
