@@ -7,31 +7,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="addOrderViewVBox" alignment="TOP_CENTER" minHeight="300.0" minWidth="325.0" prefHeight="600.0" prefWidth="650.0" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddOrderController">
+<VBox fx:id="addOrderViewVBox" alignment="TOP_CENTER" minHeight="300.0" minWidth="325.0" prefHeight="600.0" prefWidth="650.0" spacing="20.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddOrderController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <children>
-      <HBox alignment="CENTER" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
-         <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#saveOrder" prefHeight="40.0" prefWidth="140.0" text="Zapisz zlecenie" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#addNewCustomer" prefHeight="40.0" prefWidth="140.0" text="Dodaj nowego klienta" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#editCustomer" prefHeight="40.0" prefWidth="140.0" text="Edytuj klienta" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#refresh" prefHeight="40.0" prefWidth="140.0" text="Odśwież" />
-         </children>
-      </HBox>
-      <HBox spacing="10.0">
+      <HBox spacing="5.0">
          <children>
             <VBox prefWidth="315.0" spacing="10.0">
                <children>
-                  <Label text="Dane zlecenia" />
+                  <Label styleClass="label-header" text="Dane zlecenia" />
                   <Label text="* Numer zlecenia:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfOrderNumber" editable="false" maxWidth="-Infinity" prefWidth="250.0" />
-                        <ImageView fx:id="ivOrderNumber" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfOrderNumber" editable="false" maxWidth="-Infinity" prefWidth="250.0" />
+                              <ImageView fx:id="ivOrderNumber" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="250.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="* Data wejścia:" />
                   <HBox spacing="10.0">
                      <children>
@@ -40,33 +37,53 @@
                      </children>
                   </HBox>
                   <Label text="* Marka:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfManufacturer" maxWidth="-Infinity" prefWidth="250.0" />
-                        <ImageView fx:id="ivManufacturer" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfManufacturer" maxWidth="-Infinity" prefWidth="250.0" />
+                              <ImageView fx:id="ivManufacturer" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="250.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="Model:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfModel" maxWidth="-Infinity" prefWidth="250.0" />
-                        <ImageView fx:id="ivModel" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfModel" maxWidth="-Infinity" prefWidth="250.0" />
+                              <ImageView fx:id="ivModel" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="250.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="* Numer seryjny:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfSerialNumber" maxWidth="-Infinity" prefWidth="250.0" />
-                        <ImageView fx:id="ivSerialNumber" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfSerialNumber" maxWidth="-Infinity" prefWidth="250.0" />
+                              <ImageView fx:id="ivSerialNumber" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="250.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="* Opis uszkodzeń:" />
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextArea fx:id="tfDescription" maxHeight="75.0" maxWidth="250.0" prefHeight="75.0" prefWidth="250.0" wrapText="true" />
-                        <ImageView fx:id="ivDescription" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <TextArea fx:id="tfDescription" maxHeight="75.0" maxWidth="250.0" prefHeight="75.0" prefWidth="250.0" wrapText="true" />
+                              <ImageView fx:id="ivDescription" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="250.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="Prowadzący:" />
                   <HBox spacing="10.0">
                      <children>
@@ -81,42 +98,103 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="315.0" spacing="10.0">
                <children>
-                  <Label text="Dane kontaktowe" />
+                  <Label styleClass="label-header" text="Dane kontaktowe" />
                   <Label text="Szukaj w bazie:" />
-                  <TextField fx:id="tfSearch" maxWidth="210.0" prefWidth="210.0" />
+                  <VBox prefHeight="25.0" spacing="9.0">
+                     <children>
+                        <TextField fx:id="tfSearch" maxWidth="210.0" prefHeight="22.0" prefWidth="210.0" />
+                        <Separator maxWidth="210.0" prefWidth="250.0" />
+                     </children>
+                  </VBox>
                   <Label text="* Imię:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfName" editable="false" maxWidth="250.0" prefWidth="210.0" />
-                        <ImageView fx:id="ivName" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfName" editable="false" maxWidth="250.0" prefWidth="210.0" />
+                              <ImageView fx:id="ivName" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="210.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="* Nazwisko:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfSurname" editable="false" maxWidth="250.0" prefWidth="210.0" />
-                        <ImageView fx:id="ivSurname" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfSurname" editable="false" maxWidth="250.0" prefWidth="210.0" />
+                              <ImageView fx:id="ivSurname" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="210.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="* Numer telefonu:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfTelephone" editable="false" maxWidth="250.0" prefWidth="210.0" />
-                        <ImageView fx:id="ivTelephone" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfTelephone" editable="false" maxWidth="250.0" prefWidth="210.0" />
+                              <ImageView fx:id="ivTelephone" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="210.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                   <Label text="Adres e-mail:" />
-                  <HBox spacing="10.0">
+                  <VBox>
                      <children>
-                        <TextField fx:id="tfEmail" editable="false" maxWidth="250.0" prefWidth="210.0" />
-                        <ImageView fx:id="ivEmail" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField fx:id="tfEmail" editable="false" maxWidth="250.0" prefWidth="210.0" />
+                              <ImageView fx:id="ivEmail" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <Separator maxWidth="210.0" prefWidth="250.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
                <padding>
                   <Insets left="5.0" right="30.0" />
                </padding>
             </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_RIGHT" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="buttonSaveOrder" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#saveOrder" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/icons/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#addNewCustomer" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/icons/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#editCustomer" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/icons/edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#refresh" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resources/icons/refresh.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
    </children>

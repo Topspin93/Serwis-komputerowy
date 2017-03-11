@@ -92,8 +92,6 @@ public class AddCustomerWindowController {
 	}
 
 	public void add() {
-		System.out.println("add naciœniêto");
-
 		Customer customer = new Customer();
 		customer.setName(tfName.getText());
 		customer.setSurname(tfSurname.getText());

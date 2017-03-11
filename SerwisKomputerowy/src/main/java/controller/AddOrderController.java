@@ -12,24 +12,26 @@ import javax.persistence.TypedQuery;
 
 import org.controlsfx.control.textfield.TextFields;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.Main;
 import model.Customer;
 import model.Employee;
+import model.RepairOrder;
 
 public class AddOrderController {
 	private MainController mainController;
@@ -38,14 +40,23 @@ public class AddOrderController {
 	private static EntityManager entityManager;
 
 	private List<String> customersNameAndSurname = new ArrayList<String>();
+	private List<Employee> employees;
+	private List<Customer> customers;
 	private long OrderNumber;
 
 	final private Image imageOK = new Image(AddOrderController.class.getResourceAsStream("/icons/ok_icon.png"));
 	final private Image imageDenied = new Image(AddOrderController.class.getResourceAsStream("/icons/denied_icon.png"));
 	final private Image imageEmpty = new Image(AddOrderController.class.getResourceAsStream("/icons/empty_icon.png"));
 
+	private BooleanProperty buttonDisableByOrderNumber = new SimpleBooleanProperty(true);
+	private BooleanProperty buttonDisableByDatePicker = new SimpleBooleanProperty(true);
+	private BooleanProperty buttonDisableByManufacturer = new SimpleBooleanProperty(true);
+	private BooleanProperty buttonDisableBySerialNumber = new SimpleBooleanProperty(true);
+	private BooleanProperty buttonDisableByDescription = new SimpleBooleanProperty(true);
+	private BooleanProperty buttonDisableByCustomer = new SimpleBooleanProperty(true);
+
 	@FXML public VBox addOrderViewVBox;
-	
+
 	@FXML private DatePicker datepicker;
 	@FXML private ComboBox combobox;
 	@FXML private TextField tfOrderNumber, tfManufacturer, tfModel, tfSerialNumber, tfSearch, tfName, tfSurname,
@@ -53,10 +64,11 @@ public class AddOrderController {
 	@FXML private TextArea tfDescription;
 	@FXML private ImageView ivOrderNumber, ivDatePicker, ivManufacturer, ivModel, ivSerialNumber, ivDescription,
 			ivEmployee, ivName, ivSurname, ivTelephone, ivEmail;
+	@FXML private Button buttonSaveOrder;
 
 	public void init(MainController mainController) {
 		this.mainController = mainController;
-		
+
 		datepicker.setValue(LocalDate.now());
 
 		entityManagerFactory = Persistence.createEntityManagerFactory("serwisKomputerowy");
@@ -72,36 +84,55 @@ public class AddOrderController {
 		entityManagerFactory.close();
 
 		addListenersToIcons();
+		buttonSaveOrder.disableProperty()
+				.bind(buttonDisableByCustomer.booleanProperty(buttonDisableByCustomer).or(buttonDisableByOrderNumber)
+						.or(buttonDisableByDatePicker).or(buttonDisableByManufacturer).or(buttonDisableBySerialNumber)
+						.or(buttonDisableByDescription));
 	}
 
 	private void addListenersToIcons() {
-		if (tfOrderNumber.getText().matches(String.valueOf(OrderNumber)))
+		if (tfOrderNumber.getText().matches(String.valueOf(OrderNumber))) {
 			ivOrderNumber.setImage(imageOK);
+			buttonDisableByOrderNumber.set(false);
+		}
 		tfOrderNumber.textProperty().addListener((obs, oldVal, newVal) -> {
-			if (tfOrderNumber.getText().matches(""))
+			if (tfOrderNumber.getText().matches("")) {
 				ivOrderNumber.setImage(imageEmpty);
-			else if (tfOrderNumber.getText().matches(String.valueOf(OrderNumber)))
+				buttonDisableByOrderNumber.set(true);
+			} else if (tfOrderNumber.getText().matches(String.valueOf(OrderNumber))) {
 				ivOrderNumber.setImage(imageOK);
-			else
+				buttonDisableByOrderNumber.set(false);
+			} else {
 				ivOrderNumber.setImage(imageDenied);
+				buttonDisableByOrderNumber.set(true);
+			}
 		});
 
-		if (datepicker.getValue() != null)
+		if (datepicker.getValue() != null) {
 			ivDatePicker.setImage(imageOK);
+			buttonDisableByDatePicker.set(false);
+		}
 		datepicker.valueProperty().addListener((obs, oldVal, newVal) -> {
-			if (datepicker.getValue() != null)
+			if (datepicker.getValue() != null) {
+				buttonDisableByDatePicker.set(false);
 				ivDatePicker.setImage(imageOK);
-			else
+			} else {
 				ivDatePicker.setImage(imageDenied);
+				buttonDisableByDatePicker.set(true);
+			}
 		});
 
 		tfManufacturer.textProperty().addListener((obs, oldVal, newVal) -> {
-			if (tfManufacturer.getText().matches(""))
+			if (tfManufacturer.getText().matches("")) {
+				buttonDisableByManufacturer.set(true);
 				ivManufacturer.setImage(imageEmpty);
-			else if (tfManufacturer.getText().matches("[A-Z¯£][a-z¿Ÿæœê¹ñ³ó]+"))
+			} else if (tfManufacturer.getText().matches("[A-Z¯£][a-z¿Ÿæœê¹ñ³ó]+")) {
 				ivManufacturer.setImage(imageOK);
-			else
+				buttonDisableByManufacturer.set(false);
+			} else {
 				ivManufacturer.setImage(imageDenied);
+				buttonDisableByManufacturer.set(true);
+			}
 		});
 
 		tfModel.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -112,21 +143,29 @@ public class AddOrderController {
 		});
 
 		tfSerialNumber.textProperty().addListener((obs, oldVal, newVal) -> {
-			if (tfSerialNumber.getText().matches(""))
+			if (tfSerialNumber.getText().matches("")) {
+				buttonDisableBySerialNumber.set(true);
 				ivSerialNumber.setImage(imageEmpty);
-			else if (tfSerialNumber.getText() != null)
+			} else if (tfSerialNumber.getText() != null) {
+				buttonDisableBySerialNumber.set(false);
 				ivSerialNumber.setImage(imageOK);
-			else
+			} else {
+				buttonDisableBySerialNumber.set(true);
 				ivSerialNumber.setImage(imageDenied);
+			}
 		});
 
 		tfDescription.textProperty().addListener((obs, oldVal, newVal) -> {
-			if (tfDescription.getText().matches(""))
+			if (tfDescription.getText().matches("")) {
+				buttonDisableByDescription.set(true);
 				ivDescription.setImage(imageEmpty);
-			else if (tfDescription.getText() != null)
+			} else if (tfDescription.getText() != null) {
+				buttonDisableByDescription.set(false);
 				ivDescription.setImage(imageOK);
-			else
+			} else {
+				buttonDisableByDescription.set(true);
 				ivDescription.setImage(imageDenied);
+			}
 		});
 
 		combobox.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -135,16 +174,20 @@ public class AddOrderController {
 			else
 				ivEmployee.setImage(imageEmpty);
 		});
-		
+
 		tfName.textProperty().addListener((obs, oldVal, newVal) -> {
-			if (tfName.getText().matches(""))
+			if (tfName.getText().matches("")) {
+				buttonDisableByCustomer.set(true);
 				ivName.setImage(imageEmpty);
-			else if (tfName.getText().matches("[A-Z¯£][a-z¿Ÿæœê¹ñ³ó]+"))
+			} else if (tfName.getText().matches("[A-Z¯£][a-z¿Ÿæœê¹ñ³ó]+")) {
+				buttonDisableByCustomer.set(false);
 				ivName.setImage(imageOK);
-			else
+			} else {
+				buttonDisableByCustomer.set(true);
 				ivName.setImage(imageDenied);
+			}
 		});
-		
+
 		tfSurname.textProperty().addListener((obs, oldVal, newVal) -> {
 			if (tfSurname.getText().matches(""))
 				ivSurname.setImage(imageEmpty);
@@ -153,7 +196,7 @@ public class AddOrderController {
 			else
 				ivSurname.setImage(imageDenied);
 		});
-		
+
 		tfTelephone.textProperty().addListener((obs, oldVal, newVal) -> {
 			if (tfTelephone.getText().matches(""))
 				ivTelephone.setImage(imageEmpty);
@@ -162,7 +205,7 @@ public class AddOrderController {
 			else
 				ivTelephone.setImage(imageDenied);
 		});
-		
+
 		tfEmail.textProperty().addListener((obs, oldVal, newVal) -> {
 			if (tfEmail.getText().matches(""))
 				ivEmail.setImage(imageEmpty);
@@ -188,12 +231,11 @@ public class AddOrderController {
 	public void loadCustomersForSearch() {
 		customersNameAndSurname.clear();
 		TypedQuery<Customer> customersForSearch = entityManager.createQuery("SELECT c FROM Customer c", Customer.class);
-		List<Customer> customers = customersForSearch.getResultList();
+		customers = customersForSearch.getResultList();
 
 		for (Customer customer : customers) {
 			customersNameAndSurname.add(customer.getName() + " " + customer.getSurname());
 		}
-		TextFields.bindAutoCompletion(tfSearch, customersNameAndSurname);
 		tfSearch.textProperty().addListener((obs, oldVal, newVal) -> {
 			if (tfSearch.getText().equals("")) {
 				tfName.clear();
@@ -211,13 +253,13 @@ public class AddOrderController {
 				}
 			}
 		});
+		TextFields.bindAutoCompletion(tfSearch, customersNameAndSurname);
 	}
 
 	private void loadEmployeesForComboBox() {
 		TypedQuery<Employee> employeesForComboBox = entityManager.createQuery("SELECT e FROM Employee e",
 				Employee.class);
-		List<Employee> employees = employeesForComboBox.getResultList();
-		combobox.getItems().add(""); // for not-specified employee
+		employees = employeesForComboBox.getResultList();
 		for (Employee employee : employees) {
 			combobox.getItems().add(employee.getName() + " " + employee.getSurname());
 		}
@@ -225,19 +267,53 @@ public class AddOrderController {
 
 	public void saveOrder() {
 		System.out.println("button save clicked");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("serwisKomputerowy");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		RepairOrder repairOrder = new RepairOrder();
+		repairOrder.setId(OrderNumber);
+		java.sql.Date date = java.sql.Date.valueOf(datepicker.getValue());
+		repairOrder.setDate(date);
+		repairOrder.setManufacturer(tfManufacturer.getText());
+		repairOrder.setModel(tfModel.getText());
+		repairOrder.setSerialNumber(tfSerialNumber.getText());
+		repairOrder.setDescription(tfDescription.getText());
+		int employeeIndex = combobox.getSelectionModel().getSelectedIndex();
+		repairOrder.setEmployee(employees.get(employeeIndex));
+		//Customer selectedCustomer = null;
+		TypedQuery<Customer> selectCustomer = entityManager
+				.createQuery(
+						"SELECT c FROM Customer c where c.name='" + tfName.getText() + "' and c.surname='"
+								+ tfSurname.getText() + "' and c.telephone='" + tfTelephone.getText() + "'",
+						Customer.class);
+		Customer selectedCustomer = selectCustomer.getSingleResult();
+		repairOrder.setCustomer(selectedCustomer);
 
-		// if ()
-		// mainController.load();
-		// EntityManagerFactory entityManagerFactory =
-		// Persistence.createEntityManagerFactory("serwisKomputerowy");
-		// EntityManager entityManager =
-		// entityManagerFactory.createEntityManager();
-		//
-		// entityManager.close();
-		// entityManagerFactory.close();
+		entityManager.getTransaction().begin();
+		entityManager.persist(repairOrder);
+		entityManager.getTransaction().commit();
+		
+		OrderNumber++;
+		tfOrderNumber.setText(String.valueOf(OrderNumber));
+
+		entityManager.close();
+		entityManagerFactory.close();
+		
+		tfManufacturer.clear();
+		tfModel.clear();
+		tfSerialNumber.clear();
+		tfDescription.clear();
+		combobox.getSelectionModel().select(0);
+		tfSearch.clear();
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Zapis do bazy powiód³ siê");
+		alert.setHeaderText("Poprawnie zapisano do bazy.");
+		alert.setContentText("Numer zlecenia: " + (OrderNumber-1));
+		alert.showAndWait();
 	}
 
-	public void addNewCustomer(){
+	public void addNewCustomer() {
 		Stage stage = new Stage();
 		stage.setTitle("Dodawanie nowego klienta");
 		try {
@@ -252,11 +328,11 @@ public class AddOrderController {
 			e.printStackTrace();
 		}
 	}
-	
-	public void editCustomer(){
+
+	public void editCustomer() {
 	}
-	
-	public void refresh(){
+
+	public void refresh() {
 		entityManagerFactory = Persistence.createEntityManagerFactory("serwisKomputerowy");
 		entityManager = entityManagerFactory.createEntityManager();
 

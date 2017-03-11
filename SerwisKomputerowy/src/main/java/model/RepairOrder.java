@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,7 +10,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class RepairOrder {
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id; // orderNumber
 
 	private java.sql.Date date;
@@ -89,20 +90,4 @@ public class RepairOrder {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
-//	public Employee getEmployee() {
-//		return employee;
-//	}
-//
-//	public void setEmployee(Employee employee) {
-//		this.employee = employee;
-//	}
-//
-//	public Customer getCustomer() {
-//		return customer;
-//	}
-//
-//	public void setCustomer(Customer customer) {
-//		this.customer = customer;
-//	}
 }
